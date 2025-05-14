@@ -6,6 +6,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Import error handler views
+from core.views import csrf_failure, page_not_found, server_error
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
@@ -17,3 +20,8 @@ urlpatterns = [
 # Add media URL patterns for development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Custom error handlers
+handler403 = 'core.views.csrf_failure'  # CSRF verification failed
+handler404 = 'core.views.page_not_found'  # Page not found
+handler500 = 'core.views.server_error'  # Server error

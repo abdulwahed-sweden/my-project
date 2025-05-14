@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3q-1+=pj5lc1d-=sx7jq3te4rf#td188eq8^9yi(s7up3=8!a0'
+# In production, set this via environment variable
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-3q-1+=pj5lc1d-=sx7jq3te4rf#td188eq8^9yi(s7up3=8!a0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,25 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Your custom apps
+    
+    # Custom apps
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
     'api.apps.ApiConfig',
 ]
-
-# Authentication settings
-LOGIN_REDIRECT_URL = 'home'  # Redirect to home page after login
-LOGIN_URL = 'login'          # Redirect to login page if authentication required
-
-# Messages framework configuration
-from django.contrib.messages import constants as messages
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger',  # Map Django's ERROR messages to Bootstrap's 'danger' class
-}
-
-# Custom user model (optional, uncomment if using a custom user model)
-# AUTH_USER_MODEL = 'users.CustomUser'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,6 +66,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',  # Added missing debug processor
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -123,34 +113,45 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# Changed timezone to Stockholm
+TIME_ZONE = 'Europe/Stockholm'
 
 USE_I18N = True
 
 USE_TZ = True
 
 
-# Static files
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files
+# Media files (User uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Authentication settings
+LOGIN_REDIRECT_URL = 'home'  # Redirect to home page after login
+LOGIN_URL = 'login'          # Redirect to login page if authentication required
 
+# Messages framework configuration
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',  # Map Django's ERROR messages to Bootstrap's 'danger' class
+}
+
+# Custom user model (optional, uncomment if using a custom user model)
+# AUTH_USER_MODEL = 'users.CustomUser'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider's SMTP server
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'abdulwahed.sweden@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_app_password'  # Use app password for Gmail
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')  # Better to use environment variable
 
+# Error templates
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

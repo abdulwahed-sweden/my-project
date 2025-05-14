@@ -4,46 +4,111 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="jumbotron py-5">
-    <h1 class="display-4">Welcome to Django Auth System</h1>
-    <p class="lead">A complete authentication system with user profiles, password reset, and more.</p>
-    <hr class="my-4">
-    <p>Built with Django and Bootstrap 5 for a modern, responsive user experience.</p>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="jumbotron bg-light p-5 rounded">
+                <h1 class="display-4">Welcome to Our Platform</h1>
+                <p class="lead">A complete web application with authentication, profiles, and more.</p>
+                <hr class="my-4">
+                <p>Built with Django, this platform provides everything you need to manage users and content.</p>
+                
+                {% if not user.is_authenticated %}
+                    <div class="mt-4">
+                        <a href="{% url 'login' %}" class="btn btn-primary me-2">Log In</a>
+                        <a href="{% url 'register' %}" class="btn btn-success">Register</a>
+                    </div>
+                {% else %}
+                    <div class="mt-4">
+                        <a href="{% url 'profile' %}" class="btn btn-info me-2">View Profile</a>
+                        <a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title mb-0">Latest Updates</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">New Feature Added</h5>
+                                <small>3 days ago</small>
+                            </div>
+                            <p class="mb-1">Profile customization options expanded.</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Security Update</h5>
+                                <small>1 week ago</small>
+                            </div>
+                            <p class="mb-1">Enhanced password security measures.</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">New Release</h5>
+                                <small>2 weeks ago</small>
+                            </div>
+                            <p class="mb-1">Version 2.0 released with UI improvements.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="card-title mb-0">Quick Stats</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Active Users
+                            <span class="badge bg-primary rounded-pill">240</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Blog Posts
+                            <span class="badge bg-primary rounded-pill">120</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            New Today
+                            <span class="badge bg-primary rounded-pill">15</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    {% if not user.is_authenticated %}
-        <div class="mt-4">
-            <a href="{% url 'login' %}" class="btn btn-primary me-2">Log In</a>
-            <a href="{% url 'register' %}" class="btn btn-success">Register</a>
-        </div>
-    {% else %}
-        <div class="mt-4">
-            <a href="{% url 'profile' %}" class="btn btn-info">View Your Profile</a>
-        </div>
-    {% endif %}
-</div>
-
-<div class="row mt-5">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">User Authentication</h5>
-                <p class="card-text">Secure login and registration system with password hashing and protection against common vulnerabilities.</p>
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-shield-lock fs-1 text-primary mb-3"></i>
+                    <h3 class="card-title">Secure Authentication</h3>
+                    <p class="card-text">Robust user authentication system with password reset and account management.</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">User Profiles</h5>
-                <p class="card-text">Extended user profiles with additional information, avatar uploads, and bio sections.</p>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-badge fs-1 text-primary mb-3"></i>
+                    <h3 class="card-title">User Profiles</h3>
+                    <p class="card-text">Customizable user profiles with avatars, bios, and personal information.</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">Password Management</h5>
-                <p class="card-text">Complete password reset and change functionality with email verification.</p>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-layout-text-window fs-1 text-primary mb-3"></i>
+                    <h3 class="card-title">Responsive Design</h3>
+                    <p class="card-text">Modern, mobile-friendly interface that works seamlessly on all devices.</p>
+                </div>
             </div>
         </div>
     </div>
