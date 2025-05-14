@@ -1,14 +1,20 @@
 /* static/admin/css/override.css */
 
-/* Import Bootstrap's CSS (optional) */
+/* 1. Define Bootstrap CSS variables (Tailwind-like) */
+:root {
+    --bs-primary: #4a6fa5;        /* primary color */
+    --bs-primary-rgb: 74,111,165; /* for utilities that need RGB */
+}
+
+/* 2. Import Bootstrap’s CSS */
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* 3. Import Google Noto Sans */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap');
 
-/* CSS Variables - these are also defined inline in base_site.html */
+/* 4. CSS Variables for your theme */
 :root {
-    --primary: #4a6fa5;
+    --primary: var(--bs-primary);
     --secondary: #166088;
     --accent: #4fc3f7;
     --success: #43a047;
@@ -18,217 +24,178 @@
     --dark: #212121;
 }
 
-/* Global Typography */
-body, 
-button, 
-input, 
-select, 
-textarea {
-    font-family: 'Poppins', sans-serif;
+/* 5. Global Typography */
+body, button, input, select, textarea {
+    font-family: 'Noto Sans', sans-serif;
 }
 
-/* Header & Branding */
+/* 6. Header & Branding */
 #header {
     background-color: var(--primary);
     color: white;
     padding: 15px 40px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
-#branding h1, 
-#site-name {
+#branding h1, #site-name {
+    font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     margin: 0;
+    font-family: 'Noto Sans', sans-serif;
 }
-
 #site-name a {
     color: white;
 }
 
-/* User Tools */
+/* 7. User Tools */
 #user-tools {
     font-size: 13px;
     letter-spacing: 0.3px;
 }
-
 #user-tools a {
     color: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.2s ease;
 }
-
-#user-tools a:focus, 
+#user-tools a:focus,
 #user-tools a:hover {
     color: white;
     border-bottom-color: white;
     text-decoration: none;
 }
 
-/* Sidebar */
+/* 8. Sidebar */
 #nav-sidebar {
     background-color: white;
     border-right: 1px solid #f0f0f0;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.03);
 }
-
-.module caption, 
-.module h2 {
-    background-color: var(--secondary);
-    color: white;
-    font-weight: 500;
-    padding: 12px 15px;
-}
-
-/* Make the sidebar cleaner */
 #nav-sidebar .module {
     border-radius: 4px;
     overflow: hidden;
     margin-bottom: 15px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
-
+.module caption,
+.module h2 {
+    background-color: var(--secondary);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 12px 15px;
+    font-family: 'Noto Sans', sans-serif;
+}
 #nav-sidebar a {
     color: #444;
     transition: background 0.2s ease;
 }
-
 #nav-sidebar a:hover {
     background-color: #f9f9f9;
 }
 
-/* Buttons */
-.button, 
-input[type=submit], 
-input[type=button], 
-.submit-row input, 
+/* 9. Buttons (Bootstrap’s .btn-primary will now use our --bs-primary) */
+.btn-primary,
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
 a.button {
-    background-color: var(--secondary);
-    color: white;
+    background-color: var(--primary);
+    color: #fff;
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
     font-weight: 500;
     transition: all 0.3s ease;
+    font-family: 'Noto Sans', sans-serif;
 }
-
-.button:hover, 
-input[type=submit]:hover, 
-input[type=button]:hover, 
-.submit-row input:hover, 
+.btn-primary:hover,
+.button:hover,
+input[type=submit]:hover,
+input[type=button]:hover,
+.submit-row input:hover,
 a.button:hover {
-    background-color: #0d4d6d;
+    background-color: rgb(var(--bs-primary-rgb) / 0.85);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-.button.default, 
-input[type=submit].default, 
-.submit-row input.default {
-    background-color: var(--primary);
-}
-
-.button.default:hover, 
-input[type=submit].default:hover, 
-.submit-row input.default:hover {
-    background-color: #3a5a84;
-}
-
-.submit-row a.deletelink {
-    background-color: var(--danger);
-    color: white;
-}
-
-.submit-row a.deletelink:hover {
-    background-color: #c62828;
-}
-
-/* Forms */
+/* 10. Forms */
 .form-row {
     padding: 12px 0;
     border-bottom: 1px solid #f0f0f0;
 }
-
 .form-row label {
     font-weight: 500;
     color: #555;
+    font-family: 'Noto Sans', sans-serif;
 }
-
-input[type=text], 
-input[type=password], 
-input[type=email], 
-input[type=url], 
-input[type=number], 
-input[type=tel], 
-textarea, 
-select, 
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=number],
+input[type=tel],
+textarea,
+select,
 .vTextField {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 8px 12px;
     font-size: 14px;
     transition: border 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'Noto Sans', sans-serif;
 }
-
-input[type=text]:focus, 
-input[type=password]:focus, 
-input[type=email]:focus, 
-input[type=url]:focus, 
-input[type=number]:focus, 
-input[type=tel]:focus, 
-textarea:focus, 
-select:focus, 
+input:focus,
+textarea:focus,
+select:focus,
 .vTextField:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
     outline: none;
 }
 
-/* Messages and Alerts */
+/* 11. Messages & Alerts */
 .messagelist li {
     border-radius: 4px;
     margin-bottom: 10px;
     padding: 12px 15px;
+    font-family: 'Noto Sans', sans-serif;
 }
-
 .messagelist .success {
     background-color: var(--success);
     color: white;
 }
-
 .messagelist .warning {
     background-color: var(--warning);
     color: white;
 }
-
 .messagelist .error {
     background-color: var(--danger);
     color: white;
 }
 
-/* Tables */
+/* 12. Tables */
 table {
     border: none;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    font-family: 'Noto Sans', sans-serif;
 }
-
 thead th {
-    background-color: #f5f5f5;
+    background-color: var(--light);
     color: #333;
     font-weight: 600;
     padding: 12px 10px;
 }
-
 tbody tr:nth-child(odd) {
     background-color: #fcfcfc;
 }
-
 tbody tr:hover {
     background-color: #f0f7ff;
 }
 
-/* Dashboard */
+/* 13. Dashboard Modules */
 .dashboard .module {
     border-radius: 4px;
     overflow: hidden;
@@ -236,62 +203,55 @@ tbody tr:hover {
     margin-bottom: 20px;
     background-color: white;
 }
-
 .dashboard .module h2 {
     background-color: var(--secondary);
+    font-family: 'Noto Sans', sans-serif;
 }
 
-/* Responsive fixes */
+/* 14. Responsive */
 @media (max-width: 767px) {
     #header {
         padding: 15px 20px;
     }
-    
     #content {
         padding: 15px;
     }
-    
     .form-row {
         padding: 8px 0;
     }
 }
 
-/* Login page specific */
+/* 15. Login Page */
 .login #header {
     height: auto;
     padding: 25px;
 }
-
 .login #content {
     padding: 20px;
 }
-
 .login .form-row {
     padding: 10px 0;
 }
 
-/* Pagination */
+/* 16. Pagination */
 .paginator {
     margin: 20px 0;
     font-size: 13px;
+    font-family: 'Noto Sans', sans-serif;
 }
-
-.paginator a, 
+.paginator a,
 .paginator .this-page {
     padding: 7px 12px;
     border-radius: 4px;
     margin: 0 3px;
 }
-
 .paginator a {
-    background-color: #f5f5f5;
+    background-color: var(--light);
     color: #444;
 }
-
 .paginator a:hover {
     background-color: #eee;
 }
-
 .paginator .this-page {
     background-color: var(--primary);
     color: white;

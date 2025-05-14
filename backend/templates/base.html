@@ -5,73 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Django Auth System{% endblock %}</title>
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- Google Fonts - Elegant choices -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
+    <!-- Google Font: Noto Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS using same theme & fonts as admin override -->
     <style>
-        /* Elegant color palette */
+        /* Theme colors */
         :root {
-            --primary: #5271ff;          /* Soft blue - main brand color */
-            --primary-dark: #3d5af1;     /* Darker blue for hover states */
-            --secondary: #8267be;        /* Purple - secondary brand color */
-            --success: #38b28f;          /* Teal - success color */
-            --info: #59c1e8;             /* Light blue - info color */
-            --warning: #f3b05a;          /* Amber - warning color */
-            --danger: #e55c5c;           /* Red - danger/error color */
-            --light: #f8f9fa;            /* Near white - light backgrounds */
-            --dark: #2d3748;             /* Dark slate - dark text/backgrounds */
-            --gray: #718096;             /* Medium gray - subdued text */
-            --gray-light: #e2e8f0;       /* Light gray - borders, dividers */
-            --body-bg: #f9fafb;          /* Subtle off-white for body background */
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #4fc3f7;
+            --success: #43a047;
+            --warning: #ff9800;
+            --danger: #e53935;
+            --light: #f5f5f5;
+            --dark: #212121;
         }
-        
-        /* Base styles */
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: var(--body-bg);
+
+        /* Base typography */
+        body, button, input, select, textarea {
+            font-family: 'Noto Sans', sans-serif;
             color: var(--dark);
             line-height: 1.6;
+            background-color: var(--light);
         }
-        
         h1, h2, h3, h4, h5, h6, .navbar-brand {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Noto Sans', sans-serif;
             font-weight: 600;
-            letter-spacing: -0.02em;
+            letter-spacing: 0;
+            color: var(--dark);
         }
-        
-        /* Navigation */
+
+        /* Navbar */
         .navbar {
-            background-color: white !important;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+            background-color: #fff !important;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
         }
-        
         .navbar-brand {
             color: var(--primary) !important;
-            font-weight: 600;
         }
-        
         .navbar-toggler {
             border-color: transparent;
         }
-        
         .nav-link {
             color: var(--dark) !important;
             font-weight: 500;
             position: relative;
             transition: color 0.3s;
         }
-        
         .nav-link:hover {
             color: var(--primary) !important;
         }
-        
-        .nav-link:after {
+        .nav-link::after {
             content: "";
             position: absolute;
             width: 0;
@@ -81,182 +71,152 @@
             background-color: var(--primary);
             transition: width 0.3s;
         }
-        
-        .nav-link:hover:after {
+        .nav-link:hover::after {
             width: 100%;
         }
-        
+
         /* Cards */
         .card {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
-        
         .card-header {
             border-bottom: none;
             padding: 20px 25px;
+            background-color: var(--secondary);
+            color: #fff;
         }
-        
         .card-body {
             padding: 25px;
         }
-        
         .card-footer {
             background-color: transparent;
-            border-top: 1px solid var(--gray-light);
+            border-top: 1px solid #e2e8f0;
             padding: 15px 25px;
         }
-        
+
         /* Buttons */
         .btn {
             font-weight: 600;
             padding: 0.5rem 1.5rem;
             border-radius: 7px;
             transition: all 0.3s;
+            font-family: 'Noto Sans', sans-serif;
         }
-        
         .btn-primary {
             background-color: var(--primary) !important;
             border-color: var(--primary) !important;
+            color: #fff !important;
         }
-        
         .btn-primary:hover {
-            background-color: var(--primary-dark) !important;
-            border-color: var(--primary-dark) !important;
-            box-shadow: 0 4px 10px rgba(82, 113, 255, 0.3);
+            background-color: #3a5a84 !important;
+            border-color: #3a5a84 !important;
+            box-shadow: 0 4px 10px rgba(74,111,165,0.3);
         }
-        
         .btn-success {
             background-color: var(--success) !important;
             border-color: var(--success) !important;
+            color: #fff;
         }
-        
         .btn-success:hover {
             background-color: #2e9a7b !important;
             border-color: #2e9a7b !important;
-            box-shadow: 0 4px 10px rgba(56, 178, 143, 0.3);
+            box-shadow: 0 4px 10px rgba(56,160,143,0.3);
         }
-        
         .btn-info {
-            background-color: var(--info) !important;
-            border-color: var(--info) !important;
-            color: white !important;
+            background-color: var(--accent) !important;
+            border-color: var(--accent) !important;
+            color: #fff;
         }
-        
         .btn-info:hover {
             background-color: #3ba5d6 !important;
             border-color: #3ba5d6 !important;
-            box-shadow: 0 4px 10px rgba(89, 193, 232, 0.3);
+            box-shadow: 0 4px 10px rgba(79,195,247,0.3);
         }
-        
         .btn-warning {
             background-color: var(--warning) !important;
             border-color: var(--warning) !important;
-            color: white !important;
+            color: #fff;
         }
-        
         .btn-danger {
             background-color: var(--danger) !important;
             border-color: var(--danger) !important;
+            color: #fff;
         }
-        
+
         /* Forms */
         .form-control {
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 0.6rem 1rem;
-            border: 1px solid var(--gray-light);
+            border: 1px solid #e2e8f0;
             font-size: 1rem;
         }
-        
         .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(82, 113, 255, 0.15);
-            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79,195,247,0.15);
+            border-color: var(--accent);
         }
-        
+
         /* Alerts */
         .alert {
             border: none;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        
         .alert-success {
-            background-color: rgba(56, 178, 143, 0.12);
+            background-color: rgba(67,160,71,0.12);
             color: var(--success);
         }
-        
         .alert-info {
-            background-color: rgba(89, 193, 232, 0.12);
-            color: #3ba5d6;
+            background-color: rgba(79,195,247,0.12);
+            color: var(--accent);
         }
-        
         .alert-warning {
-            background-color: rgba(243, 176, 90, 0.12);
-            color: #d28c29;
+            background-color: rgba(255,152,0,0.12);
+            color: var(--warning);
         }
-        
         .alert-danger {
-            background-color: rgba(229, 92, 92, 0.12);
+            background-color: rgba(229,57,53,0.12);
             color: var(--danger);
         }
-        
-        /* Profile image */
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        
-        .profile-card {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
+
         /* Footer */
         footer {
-            background-color: white;
-            border-top: 1px solid var(--gray-light);
-            color: var(--gray);
+            background-color: #fff;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
             padding: 40px 0 20px;
             margin-top: 100px;
         }
-        
         footer h5 {
             color: var(--dark);
             font-weight: 600;
             margin-bottom: 20px;
         }
-        
         footer a {
-            color: var(--gray);
+            color: #718096;
             transition: color 0.3s;
         }
-        
         footer a:hover {
             color: var(--primary);
         }
-        
-        /* Page transition */
+
+        /* Fade-in for main content */
         main {
             animation: fadeIn 0.5s ease;
         }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            to   { opacity: 1; transform: translateY(0); }
         }
     </style>
+
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -330,7 +290,7 @@
             <div class="messages-container mb-4">
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                        <i class="bi {% if message.tags == 'success' %}bi-check-circle{% elif message.tags == 'danger' or message.tags == 'error' %}bi-exclamation-triangle{% elif message.tags == 'warning' %}bi-exclamation-circle{% elif message.tags == 'info' %}bi-info-circle{% endif %} me-2"></i>
+                        <i class="bi {% if message.tags == 'success' %}bi-check-circle{% elif message.tags in 'danger error' %}bi-exclamation-triangle{% elif message.tags == 'warning' %}bi-exclamation-circle{% else %}bi-info-circle{% endif %} me-2"></i>
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
@@ -388,7 +348,6 @@
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     {% block extra_js %}{% endblock %}
 </body>
 </html>
