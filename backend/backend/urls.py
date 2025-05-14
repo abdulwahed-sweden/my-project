@@ -9,6 +9,13 @@ from django.conf.urls.static import static
 # Import error handler views
 from core.views import csrf_failure, page_not_found, server_error
 
+
+# تعديل عناوين لوحة الإدارة
+admin.site.site_header = "Zytona Admin"
+admin.site.site_title = "Zytona Portal"
+admin.site.index_title = "Welcome to Zytona Admin Portal"
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
