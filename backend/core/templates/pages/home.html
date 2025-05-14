@@ -1,0 +1,51 @@
+{# templates/pages/home.html #}
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron py-5">
+    <h1 class="display-4">Welcome to Django Auth System</h1>
+    <p class="lead">A complete authentication system with user profiles, password reset, and more.</p>
+    <hr class="my-4">
+    <p>Built with Django and Bootstrap 5 for a modern, responsive user experience.</p>
+    
+    {% if not user.is_authenticated %}
+        <div class="mt-4">
+            <a href="{% url 'login' %}" class="btn btn-primary me-2">Log In</a>
+            <a href="{% url 'register' %}" class="btn btn-success">Register</a>
+        </div>
+    {% else %}
+        <div class="mt-4">
+            <a href="{% url 'profile' %}" class="btn btn-info">View Your Profile</a>
+        </div>
+    {% endif %}
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">User Authentication</h5>
+                <p class="card-text">Secure login and registration system with password hashing and protection against common vulnerabilities.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">User Profiles</h5>
+                <p class="card-text">Extended user profiles with additional information, avatar uploads, and bio sections.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Password Management</h5>
+                <p class="card-text">Complete password reset and change functionality with email verification.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

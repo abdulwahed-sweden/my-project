@@ -1,0 +1,24 @@
+{# templates/users/logout.html #}
+{% extends 'base.html' %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-header bg-secondary text-white">
+                <h2 class="card-title mb-0">Logged Out</h2>
+            </div>
+            <div class="card-body">
+                <p class="lead">You have been successfully logged out.</p>
+                <p>Thank you for using our site!</p>
+                <a href="{% url 'login' %}" class="btn btn-primary">Log In Again</a>
+            </div>
+            <div class="card-footer">
+                <small><a href="{% url 'home' %}">Return to Home Page</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
