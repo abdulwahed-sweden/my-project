@@ -1,0 +1,37 @@
+{# templates/500.html #}
+{% extends 'base.html' %}
+
+{% block title %}500 - Server Error{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h2 class="card-title mb-0">500 - Server Error</h2>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <span class="display-1 text-danger">500</span>
+                </div>
+                
+                <h3>Something went wrong on our end</h3>
+                <p class="lead">We're sorry, but our server encountered an unexpected error.</p>
+                
+                <div class="alert alert-light border mt-4">
+                    <p>Our technical team has been automatically notified of this issue and is working to fix it.</p>
+                    <p>Please try again later or contact support if the problem persists.</p>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="{% url 'home' %}" class="btn btn-primary me-2">Return to Home</a>
+                    <button class="btn btn-secondary" onclick="window.location.reload();">Refresh Page</button>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <p class="mb-0">Error 500: Internal Server Error</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

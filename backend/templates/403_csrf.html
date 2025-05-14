@@ -1,0 +1,42 @@
+{# templates/403_csrf.html #}
+{% extends 'base.html' %}
+
+{% block title %}403 Forbidden - CSRF Verification Failed{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h2 class="card-title mb-0">403 Forbidden - CSRF Verification Failed</h2>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <span class="display-1 text-danger">
+                        <i class="bi bi-shield-exclamation"></i>
+                    </span>
+                </div>
+                
+                <h3>CSRF Verification Failed</h3>
+                <p class="lead">Your request was rejected because it failed security verification.</p>
+                
+                <div class="alert alert-secondary">
+                    <h5>Possible reasons:</h5>
+                    <ul>
+                        <li>The form was submitted from a different session or browser window.</li>
+                        <li>Your session may have expired during a lengthy form submission.</li>
+                        <li>You may have disabled cookies in your browser.</li>
+                    </ul>
+                </div>
+                
+                <p>Please go back to the previous page, refresh, and try again. If the problem persists, try clearing your browser cookies or using a different browser.</p>
+                
+                <div class="mt-4 text-center">
+                    <a href="{% url 'home' %}" class="btn btn-primary me-2">Return to Home</a>
+                    <button class="btn btn-secondary" onclick="window.history.back();">Go Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
