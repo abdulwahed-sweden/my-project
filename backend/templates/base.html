@@ -7,43 +7,315 @@
     <title>{% block title %}Django Auth System{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts - Elegant choices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
+        /* Elegant color palette */
+        :root {
+            --primary: #5271ff;          /* Soft blue - main brand color */
+            --primary-dark: #3d5af1;     /* Darker blue for hover states */
+            --secondary: #8267be;        /* Purple - secondary brand color */
+            --success: #38b28f;          /* Teal - success color */
+            --info: #59c1e8;             /* Light blue - info color */
+            --warning: #f3b05a;          /* Amber - warning color */
+            --danger: #e55c5c;           /* Red - danger/error color */
+            --light: #f8f9fa;            /* Near white - light backgrounds */
+            --dark: #2d3748;             /* Dark slate - dark text/backgrounds */
+            --gray: #718096;             /* Medium gray - subdued text */
+            --gray-light: #e2e8f0;       /* Light gray - borders, dividers */
+            --body-bg: #f9fafb;          /* Subtle off-white for body background */
+        }
+        
+        /* Base styles */
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--body-bg);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+        }
+        
+        .navbar-brand {
+            color: var(--primary) !important;
+            font-weight: 600;
+        }
+        
+        .navbar-toggler {
+            border-color: transparent;
+        }
+        
+        .nav-link {
+            color: var(--dark) !important;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+        
+        .nav-link:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card-header {
+            border-bottom: none;
+            padding: 20px 25px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .card-footer {
+            background-color: transparent;
+            border-top: 1px solid var(--gray-light);
+            padding: 15px 25px;
+        }
+        
+        /* Buttons */
+        .btn {
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 7px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary) !important;
+            border-color: var(--primary) !important;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark) !important;
+            border-color: var(--primary-dark) !important;
+            box-shadow: 0 4px 10px rgba(82, 113, 255, 0.3);
+        }
+        
+        .btn-success {
+            background-color: var(--success) !important;
+            border-color: var(--success) !important;
+        }
+        
+        .btn-success:hover {
+            background-color: #2e9a7b !important;
+            border-color: #2e9a7b !important;
+            box-shadow: 0 4px 10px rgba(56, 178, 143, 0.3);
+        }
+        
+        .btn-info {
+            background-color: var(--info) !important;
+            border-color: var(--info) !important;
+            color: white !important;
+        }
+        
+        .btn-info:hover {
+            background-color: #3ba5d6 !important;
+            border-color: #3ba5d6 !important;
+            box-shadow: 0 4px 10px rgba(89, 193, 232, 0.3);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning) !important;
+            border-color: var(--warning) !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger) !important;
+            border-color: var(--danger) !important;
+        }
+        
+        /* Forms */
+        .form-control {
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--gray-light);
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(82, 113, 255, 0.15);
+            border-color: var(--primary);
+        }
+        
+        /* Alerts */
+        .alert {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .alert-success {
+            background-color: rgba(56, 178, 143, 0.12);
+            color: var(--success);
+        }
+        
+        .alert-info {
+            background-color: rgba(89, 193, 232, 0.12);
+            color: #3ba5d6;
+        }
+        
+        .alert-warning {
+            background-color: rgba(243, 176, 90, 0.12);
+            color: #d28c29;
+        }
+        
+        .alert-danger {
+            background-color: rgba(229, 92, 92, 0.12);
+            color: var(--danger);
+        }
+        
+        /* Profile image */
         .profile-img {
             width: 150px;
             height: 150px;
             object-fit: cover;
             border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
+        
         .profile-card {
             max-width: 700px;
             margin: 0 auto;
         }
+        
+        /* Footer */
+        footer {
+            background-color: white;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+            padding: 40px 0 20px;
+            margin-top: 100px;
+        }
+        
+        footer h5 {
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        footer a {
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: var(--primary);
+        }
+        
+        /* Page transition */
+        main {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-light mb-5">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">Django Auth</a>
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="bi bi-shield-lock me-2"></i>Django Auth
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <i class="bi bi-house me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">
+                            <i class="bi bi-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
+                        {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                            <a class="nav-link" href="{% url 'admin:index' %}">
+                                <i class="bi bi-speedometer me-1"></i>Admin
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">
+                                <i class="bi bi-grid me-1"></i>Dashboard
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            <a class="nav-link" href="{% url 'profile' %}">
+                                <i class="bi bi-person me-1"></i>Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-right me-1"></i>Logout
+                            </a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link" href="{% url 'login' %}">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            <a class="nav-link" href="{% url 'register' %}">
+                                <i class="bi bi-person-plus me-1"></i>Register
+                            </a>
                         </li>
                     {% endif %}
                 </ul>
@@ -52,29 +324,71 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container">
+    <main class="container">
         <!-- Messages -->
         {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
+            <div class="messages-container mb-4">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <i class="bi {% if message.tags == 'success' %}bi-check-circle{% elif message.tags == 'danger' or message.tags == 'error' %}bi-exclamation-triangle{% elif message.tags == 'warning' %}bi-exclamation-circle{% elif message.tags == 'info' %}bi-info-circle{% endif %} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
 
         <!-- Page Content -->
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-light py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-0">&copy; {% now "Y" %} Django Auth System. All rights reserved.</p>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>Django Auth System</h5>
+                    <p class="text-muted">A complete authentication and user profile management system built with Django.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'home' %}" class="text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="{% url 'about' %}" class="text-decoration-none">About</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="mb-2"><a href="{% url 'profile' %}" class="text-decoration-none">Profile</a></li>
+                            <li class="mb-2"><a href="{% url 'dashboard' %}" class="text-decoration-none">Dashboard</a></li>
+                        {% else %}
+                            <li class="mb-2"><a href="{% url 'login' %}" class="text-decoration-none">Login</a></li>
+                            <li class="mb-2"><a href="{% url 'register' %}" class="text-decoration-none">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>contact@example.com</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>(123) 456-7890</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>123 Main St, City, Country</li>
+                    </ul>
+                    <div class="mt-3">
+                        <a href="#" class="me-3 text-decoration-none fs-5"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="me-3 text-decoration-none fs-5"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3 text-decoration-none fs-5"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-decoration-none fs-5"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; {% now "Y" %} Django Auth System. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
