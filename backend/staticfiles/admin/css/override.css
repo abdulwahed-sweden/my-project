@@ -1,0 +1,193 @@
+/* static/admin/css/override.css */
+
+/* Import Bootstrap's CSS (optional) */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Change the admin header background */
+#header {
+    background-color: #2c3e50; /* deep blue */
+    color: #ecf0f1;
+    padding: 15px 20px 15px 40px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header text styling */
+#header h1 a {
+    color: #ecf0f1 !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* User tools in header */
+#user-tools {
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+#user-tools a {
+    color: #ecf0f1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+#user-tools a:focus, #user-tools a:hover {
+    color: #ffffff;
+    border-bottom-color: #ffffff;
+    text-decoration: none;
+}
+
+/* Override admin form font */
+body, 
+fieldset.module, 
+div.inline-related,
+.form-row,
+form label,
+.object-tools,
+p.help,
+.paginator,
+.submit-row,
+.aligned label {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Make the sidebar menu narrower */
+#nav-sidebar {
+    width: 220px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #e1e1e1;
+}
+
+/* Style sidebar navigation */
+#nav-sidebar .module caption {
+    background-color: #34495e;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Style the buttons using Bootstrap-like styling */
+input[type=submit], 
+.submit-row input, 
+a.button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Primary action buttons */
+.button.default, 
+input[type=submit].default, 
+.submit-row input.default {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.button.default:hover, 
+input[type=submit].default:hover, 
+.submit-row input.default:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Regular action buttons */
+.button, 
+input[type=submit], 
+input[type=button], 
+.submit-row input, 
+a.button {
+    background-color: #4267B2;
+    border-color: #4267B2;
+}
+
+.button:hover, 
+input[type=submit]:hover, 
+input[type=button]:hover, 
+.submit-row input:hover, 
+a.button:hover {
+    background-color: #365899;
+    border-color: #365899;
+}
+
+/* Delete button */
+.submit-row a.deletelink {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.submit-row a.deletelink:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+/* Form controls */
+.form-control, 
+textarea, 
+select, 
+input[type=text], 
+input[type=password], 
+input[type=email], 
+input[type=number], 
+input[type=url], 
+input[type=tel], 
+input[type=checkbox], 
+select {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Focus states */
+.form-control:focus, 
+input:focus, 
+textarea:focus, 
+select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Table styling */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+thead th {
+    background-color: #ecf0f1 !important;
+    color: #2c3e50 !important;
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+/* Message styling */
+.messagelist .success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.messagelist .warning {
+    background-color: #f39c12;
+    color: white;
+}
+
+.messagelist .error {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Fixed responsive issues */
+@media (max-width: 767px) {
+    #nav-sidebar {
+        width: 100%;
+    }
+}

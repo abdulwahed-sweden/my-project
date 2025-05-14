@@ -1,0 +1,298 @@
+/* static/admin/css/override.css */
+
+/* Import Bootstrap's CSS (optional) */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* CSS Variables - these are also defined inline in base_site.html */
+:root {
+    --primary: #4a6fa5;
+    --secondary: #166088;
+    --accent: #4fc3f7;
+    --success: #43a047;
+    --warning: #ff9800;
+    --danger: #e53935;
+    --light: #f5f5f5;
+    --dark: #212121;
+}
+
+/* Global Typography */
+body, 
+button, 
+input, 
+select, 
+textarea {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header & Branding */
+#header {
+    background-color: var(--primary);
+    color: white;
+    padding: 15px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#branding h1, 
+#site-name {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+#site-name a {
+    color: white;
+}
+
+/* User Tools */
+#user-tools {
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
+
+#user-tools a {
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+#user-tools a:focus, 
+#user-tools a:hover {
+    color: white;
+    border-bottom-color: white;
+    text-decoration: none;
+}
+
+/* Sidebar */
+#nav-sidebar {
+    background-color: white;
+    border-right: 1px solid #f0f0f0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.03);
+}
+
+.module caption, 
+.module h2 {
+    background-color: var(--secondary);
+    color: white;
+    font-weight: 500;
+    padding: 12px 15px;
+}
+
+/* Make the sidebar cleaner */
+#nav-sidebar .module {
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#nav-sidebar a {
+    color: #444;
+    transition: background 0.2s ease;
+}
+
+#nav-sidebar a:hover {
+    background-color: #f9f9f9;
+}
+
+/* Buttons */
+.button, 
+input[type=submit], 
+input[type=button], 
+.submit-row input, 
+a.button {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.button:hover, 
+input[type=submit]:hover, 
+input[type=button]:hover, 
+.submit-row input:hover, 
+a.button:hover {
+    background-color: #0d4d6d;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.button.default, 
+input[type=submit].default, 
+.submit-row input.default {
+    background-color: var(--primary);
+}
+
+.button.default:hover, 
+input[type=submit].default:hover, 
+.submit-row input.default:hover {
+    background-color: #3a5a84;
+}
+
+.submit-row a.deletelink {
+    background-color: var(--danger);
+    color: white;
+}
+
+.submit-row a.deletelink:hover {
+    background-color: #c62828;
+}
+
+/* Forms */
+.form-row {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.form-row label {
+    font-weight: 500;
+    color: #555;
+}
+
+input[type=text], 
+input[type=password], 
+input[type=email], 
+input[type=url], 
+input[type=number], 
+input[type=tel], 
+textarea, 
+select, 
+.vTextField {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type=text]:focus, 
+input[type=password]:focus, 
+input[type=email]:focus, 
+input[type=url]:focus, 
+input[type=number]:focus, 
+input[type=tel]:focus, 
+textarea:focus, 
+select:focus, 
+.vTextField:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+    outline: none;
+}
+
+/* Messages and Alerts */
+.messagelist li {
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+}
+
+.messagelist .success {
+    background-color: var(--success);
+    color: white;
+}
+
+.messagelist .warning {
+    background-color: var(--warning);
+    color: white;
+}
+
+.messagelist .error {
+    background-color: var(--danger);
+    color: white;
+}
+
+/* Tables */
+table {
+    border: none;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+thead th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 10px;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #fcfcfc;
+}
+
+tbody tr:hover {
+    background-color: #f0f7ff;
+}
+
+/* Dashboard */
+.dashboard .module {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.dashboard .module h2 {
+    background-color: var(--secondary);
+}
+
+/* Responsive fixes */
+@media (max-width: 767px) {
+    #header {
+        padding: 15px 20px;
+    }
+    
+    #content {
+        padding: 15px;
+    }
+    
+    .form-row {
+        padding: 8px 0;
+    }
+}
+
+/* Login page specific */
+.login #header {
+    height: auto;
+    padding: 25px;
+}
+
+.login #content {
+    padding: 20px;
+}
+
+.login .form-row {
+    padding: 10px 0;
+}
+
+/* Pagination */
+.paginator {
+    margin: 20px 0;
+    font-size: 13px;
+}
+
+.paginator a, 
+.paginator .this-page {
+    padding: 7px 12px;
+    border-radius: 4px;
+    margin: 0 3px;
+}
+
+.paginator a {
+    background-color: #f5f5f5;
+    color: #444;
+}
+
+.paginator a:hover {
+    background-color: #eee;
+}
+
+.paginator .this-page {
+    background-color: var(--primary);
+    color: white;
+}
