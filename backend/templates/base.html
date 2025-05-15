@@ -1,4 +1,4 @@
-{# templates/base2.html #}
+{# templates/base.html #}
 {% load static %}
 <!doctype html>
 {% if LANGUAGE_CODE == 'ar' %}
@@ -7,10 +7,8 @@
 <html lang="en" dir="ltr">
 {% endif %}
     <head>
-
         <title>{% block title %}Your Project{% endblock %}</title>
         <meta name="description" content="{% block meta_description %}Default site description{% endblock %}">
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,56 +28,15 @@
         
         <!-- Additional page-specific styles -->
         {% block extra_css %}{% endblock %}
-        
+    
     </head>
     <body>
-
         {% csrf_token %}
 
         <!-- Navigation bar -->
         <header>
             {% block header %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-                <div class="container">
-                    <a class="navbar-brand" href="{% url 'home' %}">
-                        <img src="{% static 'assets/images/logo.png' %}" alt="Logo" height="40">
-                    </a>
-                    
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainNav" aria-controls="navbarMainNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    
-                    <div class="collapse navbar-collapse" id="navbarMainNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'about' %}">About</a>
-                            </li>
-                            
-                            {% if user.is_authenticated %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                {% include 'includes/navbar.html' %}
             {% endblock %}
         </header>
 
@@ -108,41 +65,7 @@
         <!-- Footer -->
         <footer class="bg-light py-4 mt-5">
             {% block footer %}
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <h5>About Us</h5>
-                        <p class="text-muted">A short description about the site and its services that appears in the footer.</p>
-                    </div>
-                    
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <h5>Quick Links</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="{% url 'home' %}">Home</a></li>
-                            <li><a href="{% url 'about' %}">About</a></li>
-                            {% if user.is_authenticated %}
-                                <li><a href="{% url 'profile' %}">Profile</a></li>
-                            {% else %}
-                                <li><a href="{% url 'login' %}">Login</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <h5>Contact Us</h5>
-                        <ul class="list-unstyled">
-                            <li><i class="fi fi-envelope-alt me-2"></i> info@example.com</li>
-                            <li><i class="fi fi-phone me-2"></i> +123 456 7890</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <hr>
-                
-                <div class="text-center">
-                    <p class="mb-0">&copy; {% now "Y" %} All rights reserved.</p>
-                </div>
-            </div>
+                {% include 'includes/footer.html' %}
             {% endblock %}
         </footer>
 
@@ -162,6 +85,5 @@
 
         <!-- Additional page-specific JavaScript -->
         {% block extra_js %}{% endblock %}
-
     </body>
 </html>

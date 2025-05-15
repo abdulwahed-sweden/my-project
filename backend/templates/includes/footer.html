@@ -1,0 +1,36 @@
+{# templates/includes/footer.html #}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+            <h5>About Us</h5>
+            <p class="text-muted">A short description about the site and its services that appears in the footer.</p>
+        </div>
+                
+        <div class="col-md-4 mb-4 mb-md-0">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+                
+        <div class="col-md-4">
+            <h5>Contact Us</h5>
+            <ul class="list-unstyled">
+                <li><i class="fi fi-envelope-alt me-2"></i> info@example.com</li>
+                <li><i class="fi fi-phone me-2"></i> +123 456 7890</li>
+            </ul>
+        </div>
+    </div>
+            
+    <hr>
+            
+    <div class="text-center">
+        <p class="mb-0">&copy; {% now "Y" %} All rights reserved.</p>
+    </div>
+</div>
