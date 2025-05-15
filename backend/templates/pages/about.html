@@ -1,87 +1,70 @@
-{# templates/pages/about.html #}
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}About Us{% endblock %}
 
+{% block extra_css %}
+<!-- Any page-specific CSS can go here -->
+{% endblock %}
+
 {% block content %}
-<div class="container py-5">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h1 class="card-title mb-0">About Our Platform</h1>
-                </div>
-                <div class="card-body">
-                    <h3 class="mb-4">Our Mission</h3>
-                    <p class="lead">
-                        We aim to provide a robust, secure, and user-friendly platform for managing digital content and user interactions.
-                    </p>
-                    
-                    <hr class="my-4">
-                    
-                    <h3 class="mb-4">Our Story</h3>
-                    <p>
-                        Founded in 2023, our platform was built by developers who understand the importance of having a solid 
-                        authentication system and user management infrastructure. We've focused on creating a solution that 
-                        prioritizes security, usability, and flexibility.
-                    </p>
-                    
-                    <p>
-                        Our team combines expertise in web development, security, and user experience design to deliver 
-                        a product that meets the needs of modern web applications.
-                    </p>
-                    
-                    <hr class="my-4">
-                    
-                    <h3 class="mb-4">Technology Stack</h3>
-                    <div class="row text-center">
-                        <div class="col-md-3 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">Backend</h5>
-                                    <p class="card-text">Django</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">Frontend</h5>
-                                    <p class="card-text">Bootstrap 5</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">Database</h5>
-                                    <p class="card-text">PostgreSQL</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">Deployment</h5>
-                                    <p class="card-text">Docker</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <hr class="my-4">
-                    
-                    <h3 class="mb-4">Contact Us</h3>
-                    <p>
-                        Have questions or feedback? We'd love to hear from you!
-                    </p>
-                    <p>
-                        <strong>Email:</strong> contact@example.com<br>
-                        <strong>Phone:</strong> (123) 456-7890
-                    </p>
-                </div>
-            </div>
+<!-- PAGE TITLE -->
+<div class="section bg-gradient-primary text-white py-7">
+    <div class="container">
+
+        <h1 class="h2">
+            About Us
+        </h1>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small">
+                <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item text-gray-300 active" aria-current="page">About</li>
+            </ol>
+        </nav>
+
+    </div>
+
+    <!-- svg shape -->
+    <svg class="absolute-full z-index-0" width="100%" height="100%" viewBox="0 0 1920 90" preserveAspectRatio="none">
+        <path fill="rgba(0,0,0,0.03)" d="M1920,0C1217,0,120.574,155.567,0,0v90h1920V0z"></path>
+    </svg>
+</div>
+<!-- /PAGE TITLE -->
+
+<!-- MAIN CONTENT -->
+<div class="section">
+    <div class="container">
+
+        <div class="article-format p-4 p-lg-5 col-lg-10 mx-auto shadow-sm rounded">
+
+            <h2>About Our Company</h2>
+
+            <p>Welcome to our company! We're dedicated to providing exceptional products/services and creating meaningful experiences for our customers. Our mission is to deliver innovative solutions that meet the evolving needs of our diverse clientele.</p>
+
+            <p>Since our founding, we've been committed to excellence in everything we do. Our team of passionate professionals brings a wealth of expertise and creative thinking to every project. We believe in building lasting relationships with our customers, partners, and communities.</p>
+
+            <p>Our values guide our daily operations and long-term vision. We prioritize integrity, quality, collaboration, and continuous improvement. By staying true to these principles, we've established ourselves as a trusted name in our industry.</p>
+
+            <h3 class="h4">Our Approach</h3>
+            <p>We take a customer-centric approach to business, focusing on understanding and addressing the unique challenges and opportunities our clients face. Through thoughtful planning, meticulous execution, and ongoing evaluation, we deliver results that exceed expectations.</p>
+
+            <h3 class="h4">Our Team</h3>
+            <p>Our diverse team brings together talent from various backgrounds and disciplines. This rich tapestry of perspectives enables us to tackle complex problems with innovative solutions. We invest in our team's growth and development, fostering a culture of learning and excellence.</p>
+
+            <h3 class="h4">Our Commitment</h3>
+            <p>We're committed to making a positive impact through our work. This includes not only serving our customers with distinction but also contributing to our communities and practicing environmental stewardship. We believe business success and social responsibility go hand in hand.</p>
+
+            <h3 class="h4">Looking Forward</h3>
+            <p>As we look to the future, we remain dedicated to our founding principles while embracing change and innovation. We're excited about the opportunities ahead and invite you to join us on this journey.</p>
+
         </div>
+
     </div>
 </div>
+<!-- /MAIN CONTENT -->
+{% endblock %}
+
+{% block extra_js %}
+<!-- Any page-specific JavaScript can go here -->
 {% endblock %}

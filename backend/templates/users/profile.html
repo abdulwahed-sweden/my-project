@@ -1,71 +1,436 @@
 {# templates/users/profile.html #}
 {% extends 'base.html' %}
 
-{% block title %}My Profile{% endblock %}
+{% block title %}My Account{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card profile-card">
-            <div class="card-header bg-info text-white">
-                <h2 class="card-title mb-0">User Profile</h2>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Profile Image -->
-                    <div class="col-md-4 text-center mb-3">
-                        <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s avatar" class="profile-img img-thumbnail mb-3">
-                        <div class="d-grid gap-2">
-                            <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
-                            <a href="{% url 'password_change' %}" class="btn btn-outline-secondary">Change Password</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Profile Info -->
-                    <div class="col-md-8">
-                        <h3>{{ user.username }}</h3>
-                        <hr>
-                        <div class="row mb-2">
-                            <div class="col-sm-4 fw-bold">Full Name:</div>
-                            <div class="col-sm-8">
-                                {% if user.first_name or user.last_name %}
-                                    {{ user.first_name }} {{ user.last_name }}
-                                {% else %}
-                                    <em>Not provided</em>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-sm-4 fw-bold">Email:</div>
-                            <div class="col-sm-8">{{ user.email|default:"Not provided" }}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-sm-4 fw-bold">Location:</div>
-                            <div class="col-sm-8">{{ user.profile.location|default:"Not provided" }}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-sm-4 fw-bold">Birth Date:</div>
-                            <div class="col-sm-8">
-                                {% if user.profile.birth_date %}
-                                    {{ user.profile.birth_date }}
-                                {% else %}
-                                    <em>Not provided</em>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-sm-4 fw-bold">Joined:</div>
-                            <div class="col-sm-8">{{ user.date_joined|date:"F d, Y" }}</div>
-                        </div>
-                        
-                        <div class="mt-3">
-                            <h5>Biography</h5>
-                            <p>{{ user.profile.bio|default:"No biography provided."|linebreaks }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- PAGE TITLE -->
+<div class="container py-5">
+  <h1 class="h2 fw-bold">Account Settings</h1>
 </div>
+<!-- /PAGE TITLE -->
+
+<!-- CONTENT -->
+<div class="container pb-6">
+  <div class="row g-4">
+
+    <!-- sidebar -->
+    <div class="col-12 col-lg-3">
+      <nav class="sticky-kit nav-deep nav-deep-light">
+        <div class="card">
+          <div class="card-body p-0 p-md-4">
+            
+            <!-- mobile only -->
+            <button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded d-block d-lg-none" data-bs-target="#nav_responsive" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+              <span class="group-icon px-2 py-2 float-start">
+                <i class="fi fi-bars-2"></i>
+                <i class="fi fi-close"></i>
+              </span>
+              <span class="h5 py-2 m-0 float-start">
+                Account Menu
+              </span>
+            </button>
+
+            <!-- navbar : navigation -->
+            <ul id="nav_responsive" class="nav flex-column d-none d-lg-block mt-1 mt-lg-0">
+              <li><!-- account name -->
+                <div class="d-flex align-items-center mb-2 pb-4 border-bottom">
+                  <div class="flex-none p-3 border rounded-circle">
+                    <svg class="text-gray-300" width="34px" height="34px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460.8 460.8" fill="currentColor">
+                      <path d="M230.432,0c-65.829,0-119.641,53.812-119.641,119.641s53.812,119.641,119.641,119.641s119.641-53.812,119.641-119.641S296.261,0,230.432,0z"></path>
+                      <path d="M435.755,334.89c-3.135-7.837-7.314-15.151-12.016-21.943c-24.033-35.527-61.126-59.037-102.922-64.784c-5.224-0.522-10.971,0.522-15.151,3.657c-21.943,16.196-48.065,24.555-75.233,24.555s-53.29-8.359-75.233-24.555c-4.18-3.135-9.927-4.702-15.151-3.657c-41.796,5.747-79.412,29.257-102.922,64.784c-4.702,6.792-8.882,14.629-12.016,21.943c-1.567,3.135-1.045,6.792,0.522,9.927c4.18,7.314,9.404,14.629,14.106,20.898c7.314,9.927,15.151,18.808,24.033,27.167c7.314,7.314,15.673,14.106,24.033,20.898c41.273,30.825,90.906,47.02,142.106,47.02s100.833-16.196,142.106-47.02c8.359-6.269,16.718-13.584,24.033-20.898c8.359-8.359,16.718-17.241,24.033-27.167c5.224-6.792,9.927-13.584,14.106-20.898C436.8,341.682,437.322,338.024,435.755,334.89z"></path>
+                    </svg>
+                  </div>
+                  <div class="w-100 px-3">
+                    <span>Hello,</span>
+                    <span class="d-block fw-bold">
+                      John Davis
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-0 d-flex align-items-center" href="#">
+                  <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"></path>
+                    <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"></path>
+                  </svg>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-0 d-flex align-items-center" href="#">
+                  <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"></path>
+                    <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3zm4.354 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
+                  </svg>
+                  <span>My Orders</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-0 d-flex align-items-center" href="#">
+                  <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+                  </svg>
+                  <span>Favorites</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-0 d-flex align-items-center" href="#">
+                  <svg class="text-gray-600 float-start" width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  <span>My Addresses</span>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link px-0 d-flex align-items-center" href="#">
+                  <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path fill-rule="evenodd" d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019L13 11l-.471.242-.529.026-.287.445-.445.287-.026.529L11 13l.242.471.026.529.445.287.287.445.529.026L13 15l.471-.242.529-.026.287-.445.445-.287.026-.529L15 13l-.242-.471-.026-.529-.445-.287-.287-.445-.529-.026z"></path>
+                  </svg>
+                  <span>Account Settings</span>
+                </a>
+              </li>
+
+              <li class="nav-item border-top my-3"></li>
+
+              <li class="nav-item">
+                <a class="nav-link px-0" href="#">
+                  <i class="fi fi-power float-start"></i>
+                  Log Out
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- content -->
+    <div class="col-12 col-lg-9">
+      <div class="row g-2">
+
+        <!-- name, etc -->
+        <div class="card mb-3">
+          <div class="card-body d-flex justify-content-between">
+            <div class="flex-none pt-1" style="width:40px">
+              <svg class="text-gray-300" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460.8 460.8" fill="currentColor">
+                <path d="M230.432,0c-65.829,0-119.641,53.812-119.641,119.641s53.812,119.641,119.641,119.641s119.641-53.812,119.641-119.641S296.261,0,230.432,0z"></path>
+                <path d="M435.755,334.89c-3.135-7.837-7.314-15.151-12.016-21.943c-24.033-35.527-61.126-59.037-102.922-64.784c-5.224-0.522-10.971,0.522-15.151,3.657c-21.943,16.196-48.065,24.555-75.233,24.555s-53.29-8.359-75.233-24.555c-4.18-3.135-9.927-4.702-15.151-3.657c-41.796,5.747-79.412,29.257-102.922,64.784c-4.702,6.792-8.882,14.629-12.016,21.943c-1.567,3.135-1.045,6.792,0.522,9.927c4.18,7.314,9.404,14.629,14.106,20.898c7.314,9.927,15.151,18.808,24.033,27.167c7.314,7.314,15.673,14.106,24.033,20.898c41.273,30.825,90.906,47.02,142.106,47.02s100.833-16.196,142.106-47.02c8.359-6.269,16.718-13.584,24.033-20.898c8.359-8.359,16.718-17.241,24.033-27.167c5.224-6.792,9.927-13.584,14.106-20.898C436.8,341.682,437.322,338.024,435.755,334.89z"></path>
+              </svg>
+            </div>
+            <div class="w-100">
+              <strong class="d-block fs-5 fw-medium">Account Details</strong> 
+              <ul class="list-unstyled small mb-0">
+                <li class="list-item">Name: John Davis</li>
+                <li class="list-item">Username: johndavis</li>
+                <li class="list-item">Location: New York, USA</li>
+                <li class="list-item">Phone: +1 (555) 123-4567</li>
+              </ul>
+            </div>
+            <div class="flex-none">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modal-account-edit" class="bg-primary text-white rounded px-2 py-1 small">
+                edit
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal : Account details -->
+        <div class="modal fade" id="modal-account-edit" tabindex="-1" aria-hidden="true">
+          <form method="post" action="" novalidate class="bs-validate modal-dialog modal-dialog-centered">
+            {% csrf_token %}
+            <div class="modal-content">
+              <div class="modal-header border-0 pb-0 px-4">
+                <h5 class="modal-title">Account Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-4">
+                <div class="row g-2">
+                  <div class="col-lg-6">
+                    <div class="form-floating">
+                      <input required type="text" class="form-control" id="user-fname" name="first_name" placeholder="First name" value="John">
+                      <label for="user-fname">First name</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-floating">
+                      <input required type="text" class="form-control" id="user-lname" name="last_name" placeholder="Last name" value="Davis">
+                      <label for="user-lname">Last name</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <input type="tel" class="form-control" id="user-phone" name="phone_number" placeholder="Phone" value="+1 (555) 123-4567">
+                      <label for="user-phone">Phone</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="user-location" name="location" placeholder="Location" value="New York, USA">
+                      <label for="user-location">Location</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <textarea class="form-control" id="user-bio" name="bio" placeholder="Bio" style="height: 100px">Web developer with 5+ years of experience specializing in frontend technologies.</textarea>
+                      <label for="user-bio">Bio</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer border-0 pt-0">
+                <button type="submit" class="btn btn-primary">
+                  <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span class="ps-2">Save changes</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+        <!-- email -->
+        <div class="card mb-3">
+          <div class="card-body d-flex justify-content-between">
+            <span class="flex-none pt-1" style="width:40px">
+              <svg width="24" height="24" class="text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
+              </svg>
+            </span>
+            <span class="w-100">
+              <strong class="d-block fs-5 fw-medium">Email Address</strong> 
+              <small>Your current email address: john.davis@example.com</small>
+            </span>
+            <span class="flex-none">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modal-email-edit" class="bg-primary text-white rounded px-2 py-1 small">
+                edit
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <!-- Modal : Email address -->
+        <div class="modal fade" id="modal-email-edit" tabindex="-1" aria-hidden="true">
+          <form method="post" action="" novalidate class="bs-validate modal-dialog modal-dialog-centered">
+            {% csrf_token %}
+            <div class="modal-content">
+              <div class="modal-header border-0 pb-0 px-4">
+                <h5 class="modal-title">Email Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-4">
+                <div class="row g-2">
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <input required type="email" class="form-control" id="user-newemail" name="email" placeholder="New email address" value="" autocomplete="off">
+                      <label for="user-newemail">New email address</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <input required type="password" class="form-control" id="user-emailpassconfirm" name="password" placeholder="Account password" value="" autocomplete="new-password">
+                      <label for="user-emailpassconfirm">Current password</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer border-0 pt-0">
+                <button type="submit" class="btn btn-primary">
+                  <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span class="ps-2">Save changes</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+        <!-- password -->
+        <div class="card mb-3">
+          <div class="card-body d-flex justify-content-between">
+            <span class="flex-none pt-1" style="width:40px">
+              <svg width="24" height="24" class="text-gray-300" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 .5c-.662 0-1.77.249-2.813.525a61.11 61.11 0 0 0-2.772.815 1.454 1.454 0 0 0-1.003 1.184c-.573 4.197.756 7.307 2.368 9.365a11.192 11.192 0 0 0 2.417 2.3c.371.256.715.451 1.007.586.27.124.558.225.796.225s.527-.101.796-.225c.292-.135.636-.33 1.007-.586a11.191 11.191 0 0 0 2.418-2.3c1.611-2.058 2.94-5.168 2.367-9.365a1.454 1.454 0 0 0-1.003-1.184 61.09 61.09 0 0 0-2.772-.815C9.77.749 8.663.5 8 .5zm.5 7.415a1.5 1.5 0 1 0-1 0l-.385 1.99a.5.5 0 0 0 .491.595h.788a.5.5 0 0 0 .49-.595L8.5 7.915z"></path>
+              </svg>
+            </span>
+            <span class="w-100">
+              <strong class="d-block fs-5 fw-medium">Account Password</strong> 
+              <small>It's a good idea to have a strong password you don't use elsewhere.</small>
+            </span>
+            <span class="flex-none">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modal-passwd-edit" class="bg-primary text-white rounded px-2 py-1 small">
+                edit
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <!-- Modal : Password -->
+        <div class="modal fade" id="modal-passwd-edit" tabindex="-1" aria-hidden="true">
+          <form method="post" action="" class="bs-validate modal-dialog modal-dialog-centered">
+            {% csrf_token %}
+            <div class="modal-content">
+              <div class="modal-header border-0 pb-0 px-4">
+                <h5 class="modal-title">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-4">
+                <div class="row g-2">
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <input required type="password" class="form-control" id="user-currpass-new" name="old_password" placeholder="Current password" value="" autocomplete="new-password">
+                      <label for="user-currpass-new">Current password</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="input-group-over">
+                      <div class="form-floating mb-3">
+                        <input required placeholder="New password" id="user-newpass" type="password" name="new_password1" class="form-control" autocomplete="new-password">
+                        <label for="user-newpass">New password</label>
+                      </div>
+                      <a href="#" class="btn smaller btn-password-type-toggle" data-target="#user-newpass">
+                        <span class="group-icon">
+                          <i class="fi fi-eye m-0"></i>
+                          <i class="fi fi-close m-0"></i>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <input required type="password" class="form-control" id="user-newpass-confirm" name="new_password2" placeholder="Confirm new password" value="" autocomplete="new-password">
+                      <label for="user-newpass-confirm">Confirm new password</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer border-0 pt-0">
+                <button type="submit" class="btn btn-primary">
+                  <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span class="ps-2">Save changes</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="fs-5 fw-medium mb-3">Profile Summary</h3>
+            <div class="row">
+              <div class="col-12 mb-3">
+                <h6 class="text-muted">Bio</h6>
+                <p>Web developer with 5+ years of experience specializing in frontend technologies. Passionate about creating clean, user-friendly interfaces and optimizing web performance.</p>
+              </div>
+
+              <div class="col-md-6">
+                <h6 class="text-muted">Registration Date</h6>
+                <p>June 15, 2023</p>
+              </div>
+
+              <div class="col-md-6">
+                <h6 class="text-muted">Birth Date</h6>
+                <p>April 12, 1988</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- account delete -->
+        <div class="card mb-3">
+          <div class="card-body d-flex justify-content-between">
+            <span class="flex-none pt-1" style="width:40px">
+              <svg width="24" height="24" class="text-gray-300" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                <path fill-rule="evenodd" d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+              </svg>
+            </span>
+            <span class="w-100">
+              <strong class="d-block fs-5 fw-medium">Delete Account</strong> 
+              <small>This is a permanent action! Please be sure you want to delete your account!</small>
+            </span>
+            <span class="flex-none">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modal-account-del" class="bg-danger text-white rounded px-2 py-1 small">
+                delete
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <!-- Modal : Account delete -->
+        <div class="modal fade" id="modal-account-del" tabindex="-1" aria-hidden="true">
+          <form method="post" action="" class="bs-validate modal-dialog modal-dialog-centered">
+            {% csrf_token %}
+            <div class="modal-content">
+              <div class="modal-header border-0 pb-0 px-4">
+                <h5 class="modal-title">Delete Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-4">
+                <div class="row g-2">
+                  <div class="col-12">
+                    <p class="text-danger">This action is irreversible. All your data will be permanently deleted.</p>
+                    <div class="form-floating">
+                      <input required type="password" class="form-control" id="user-currpass-del" name="password" placeholder="Account password" value="" autocomplete="new-password">
+                      <label for="user-currpass-del">Enter your password to confirm</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger">
+                  <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                  </svg>
+                  <span class="ps-2">Delete account</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- /CONTENT -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Enable password toggle functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const passwordToggles = document.querySelectorAll('.btn-password-type-toggle');
+    
+    passwordToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('data-target');
+        const passwordInput = document.querySelector(targetId);
+        
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          this.classList.add('active');
+        } else {
+          passwordInput.type = 'password';
+          this.classList.remove('active');
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}

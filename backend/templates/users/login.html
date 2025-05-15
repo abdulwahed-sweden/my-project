@@ -4,39 +4,130 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header bg-success text-white">
-                <h2 class="card-title mb-0">Log In</h2>
+<!-- FORM -->
+<div class="section">
+  <div class="container">
+    <div class="col-12 col-sm-10 col-md-8 col-xl-6 order-1 order-xl-2 mx-auto mb-5">
+      
+      <div class="accordion mb-4" id="accordionAccount">
+
+        <!-- SIGN IN -->
+        <form class="collapse bs-validate show" novalidate method="post" action="{% url 'login' %}" id="accordionAccountSignIn" data-bs-parent="#accordionAccount">
+          {% csrf_token %}
+
+          <!-- title -->
+          <div class="text-center mb-6">
+            <h1 class="display-4 fw-bold">Welcome</h1>
+            <p class="lead m-0">Sign in to manage your orders and favorites</p>
+          </div>
+
+          <div class="card">
+            <div class="card-body p-5">
+              
+              {% if form.errors %}
+              <p class="text-danger">
+                Oops! Please check your information again
+              </p>
+              {% endif %}
+
+              <div class="form-floating mb-3">
+                <input required placeholder="Username" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}">
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                {% if form.username.errors %}
+                <div class="invalid-feedback">{{ form.username.errors }}</div>
+                {% endif %}
+              </div>
+
+              <div class="input-group-over">
+                <div class="form-floating mb-3">
+                  <input required placeholder="Password" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}">
+                  <label for="{{ form.password.id_for_label }}">Password</label>
+                  {% if form.password.errors %}
+                  <div class="invalid-feedback">{{ form.password.errors }}</div>
+                  {% endif %}
+                </div>
+
+                <a href="#accordionAccountPasswd" class="btn smaller fw-bold" data-bs-toggle="collapse" aria-expanded="true" aria-controls="accordionAccountPasswd">
+                  RESET?
+                </a>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-md-6 mt-4">
+                  <button type="submit" class="btn btn-primary w-100 fw-medium">
+                    Sign In
+                  </button>
+                </div>
+
+                <div class="col-12 col-md-6 mt-4 text-align-end text-center-xs">
+                  <a href="{% url 'register' %}" class="btn px-0 link-normal">
+                    Don't have an account yet?
+                  </a>
+                </div>
+              </div>
+
             </div>
-            <div class="card-body">
-                <form method="POST" novalidate>
-                    {% csrf_token %}
-                    
-                    <div class="mb-3">
-                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
-                        {{ form.username }}
-                        <div class="form-text text-danger">{{ form.username.errors }}</div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
-                        {{ form.password }}
-                        <div class="form-text text-danger">{{ form.password.errors }}</div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-success w-100">Login</button>
-                    
-                    <div class="text-center mt-3">
-                        <small><a href="{% url 'password_reset' %}">Forgot Password?</a></small>
-                    </div>
-                </form>
+          </div>
+        </form>
+        <!-- /SIGN IN -->
+
+        <!-- PASSWD RESET -->
+        <form class="collapse bs-validate" novalidate method="post" action="{% url 'password_reset' %}" id="accordionAccountPasswd" data-bs-parent="#accordionAccount">
+          {% csrf_token %}
+          
+          <!-- title -->
+          <div class="text-center mb-6">
+            <h1 class="display-4 fw-bold">Password Reset</h1>
+            <p class="lead m-0">A link to reset your password will be sent to your email!</p>
+          </div>
+
+          <div class="card">
+            <div class="card-body p-5">
+              <div class="form-floating mb-4">
+                <input required placeholder="Email" id="reset_email" name="email" type="email" class="form-control">
+                <label for="reset_email">Email</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100">
+                Reset Password
+              </button>
             </div>
-            <div class="card-footer text-center">
-                <small>Need an account? <a href="{% url 'register' %}">Register here</a></small>
-            </div>
-        </div>
+          </div>
+
+          <div class="text-end mt-3">
+            <a href="#accordionAccountSignIn" class="text-decoration-none" data-bs-toggle="collapse" aria-expanded="true" aria-controls="accordionAccountSignIn">
+              Nevermind, back to signin
+            </a>
+          </div>
+        </form>
+        <!-- /PASSWD RESET -->
+      </div>
+
     </div>
+  </div>
 </div>
+<!-- /FORM -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Ensure accordion functionality works properly
+  document.addEventListener('DOMContentLoaded', function() {
+    // Enable password toggle
+    const passwordToggle = document.querySelector('.btn-password-type-toggle');
+    if (passwordToggle) {
+      passwordToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('data-target');
+        const passwordInput = document.querySelector(targetId);
+        
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+        } else {
+          passwordInput.type = 'password';
+        }
+      });
+    }
+  });
+</script>
 {% endblock %}
